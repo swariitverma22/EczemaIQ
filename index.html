@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#143b35" />
+    <title>EczemaIQ — Athlete eczema decision support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a href="#top" class="brand" aria-label="EczemaIQ home">
+          <span class="brand-mark"><span></span><span></span><span></span></span>
+          <span>EczemaIQ</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a class="nav-link active" href="#top"><span>◒</span> Today</a>
+          <a class="nav-link" href="#check-in"><span>＋</span> Check-in</a>
+          <a class="nav-link" href="#trends"><span>⌁</span> Trends</a>
+          <a class="nav-link" href="#research"><span>◫</span> Learn</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="athlete-mini">
+            <div class="avatar" id="avatarInitials">AR</div>
+            <div><strong id="athleteName">Alex Rivera</strong><small id="athleteProfileMeta">Tennis · profile</small></div>
+            <button class="icon-button" id="profileButton" aria-label="Edit athlete profile">⚙</button>
+          </div>
+          <p class="privacy-note"><span>●</span> Your entries stay on this device</p>
+        </div>
+      </aside>
+
+      <main id="top">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="todayDate">TODAY</p>
+            <h1>Plan for your skin.<br /><em>Play your sport.</em></h1>
+          </div>
+          <div class="location-wrap">
+            <span class="location-dot"></span>
+            <button id="locationButton" class="location-button">Cambridge, MA <span>⌄</span></button>
+            <button id="refreshWeather" class="refresh-button" title="Refresh environmental data" aria-label="Refresh environmental data">↻</button>
+          </div>
+        </header>
+
+        <section class="hero-grid" aria-label="Today's risk overview">
+          <article class="risk-card">
+            <div class="risk-card-header">
+              <div><p class="eyebrow">TODAY'S FLARE RISK</p><p class="updated" id="scoreUpdated">Based on your check-in</p></div>
+              <span class="status-pill" id="riskPill">ELEVATED</span>
+            </div>
+            <div class="risk-main">
+              <div class="risk-ring" id="riskRing"><div><strong id="riskNumber">78</strong><span>/ 100</span></div></div>
+              <div class="risk-summary"><h2 id="riskTitle">Take a little extra care today.</h2><p id="riskMessage">Dry air, sun exposure, and a high-sweat practice may put more pressure on your skin barrier.</p></div>
+            </div>
+            <div class="risk-factor-row" id="factorChips"></div>
+            <p class="model-note">A transparent, evidence-informed estimate — not a medical diagnosis.</p>
+          </article>
+
+          <article class="next-up-card">
+            <div class="next-up-top"><p class="eyebrow">NEXT UP</p><span class="time-badge">4:30 PM</span></div>
+            <div class="sport-glyph">◔</div>
+            <h2 id="nextPractice">Tennis practice</h2>
+            <p id="practiceMeta">Outdoor · Hard court · 90 min</p>
+            <div class="next-up-line"></div>
+            <p class="next-tip"><span>✦</span><span id="nextTip">Moisturize 20 min before you head out.</span></p>
+          </article>
+        </section>
+
+        <section class="section-heading" id="environment">
+          <div><p class="eyebrow">LIVE CONDITIONS</p><h2>What your skin is up against</h2></div>
+          <button class="text-button" id="conditionsButton">View details <span>→</span></button>
+        </section>
+
+        <section class="conditions-grid" id="conditionsGrid" aria-live="polite">
+          <article class="condition-card warm"><div class="condition-icon">☀</div><div><span>Temperature</span><strong id="temperatureValue">94°</strong><small id="temperatureMeta">Feels like 96°</small></div><b class="condition-impact">+7</b></article>
+          <article class="condition-card dry"><div class="condition-icon">◌</div><div><span>Humidity</span><strong id="humidityValue">35%</strong><small id="humidityMeta">Dry air</small></div><b class="condition-impact">+8</b></article>
+          <article class="condition-card sun"><div class="condition-icon">◐</div><div><span>UV index</span><strong id="uvValue">9</strong><small id="uvMeta">Very high</small></div><b class="condition-impact">+7</b></article>
+          <article class="condition-card pollen"><div class="condition-icon">✳</div><div><span>Pollen</span><strong id="pollenValue">High</strong><small id="pollenMeta">Grass dominant</small></div><b class="condition-impact">+8</b></article>
+          <article class="condition-card air"><div class="condition-icon">≋</div><div><span>Air quality</span><strong id="aqiValue">42</strong><small id="aqiMeta">Good</small></div><b class="condition-impact neutral">0</b></article>
+        </section>
+        <p class="data-source" id="dataSource">Sample environmental conditions shown. Use the location button to fetch live data.</p>
+
+        <section class="content-grid">
+          <article class="recommendations-card">
+            <div class="card-heading"><div><p class="eyebrow">YOUR GAME PLAN</p><h2>Small moves, big difference.</h2></div><button class="outline-button" id="markDone">Mark all done</button></div>
+            <div id="recommendationList" class="recommendation-list"></div>
+            <p class="why-link" id="whyThisPlan">Why this plan? <span>→</span></p>
+          </article>
+
+          <aside class="progress-card" id="trends">
+            <p class="eyebrow">DAILY PROGRESS</p>
+            <h2>Notice your patterns.</h2>
+            <div class="streak"><span class="streak-number" id="streakNumber">0</span><span id="streakLabel">day<br />check-in streak</span><span class="streak-spark">↗</span></div>
+            <div class="week-bars" id="weekBars" aria-label="Daily flare level for the past week"></div>
+            <p class="trend-caption" id="trendCaption"><span>●</span> End each day with a flare score to start your trend.</p>
+            <div class="care-alert" id="careAlert" role="status" hidden><span>✚</span><p><strong>Consider a dermatology visit.</strong><span id="careAlertText"></span></p></div>
+            <button class="progress-button" id="endDayButton">End-day check-in <span>→</span></button>
+          </aside>
+        </section>
+
+        <section class="check-in-section" id="check-in">
+          <div class="check-in-intro"><p class="eyebrow">DAILY CHECK-IN</p><h2>Make today’s plan yours.</h2><p>Update your practice and routine. Your risk estimate and action plan will adjust instantly.</p><div class="confidence-callout"><span>◎</span><p><strong>Learn with you, over time.</strong> As you log flare outcomes, EczemaIQ can highlight the patterns most relevant to your skin.</p></div></div>
+          <form id="checkInForm" class="check-in-form">
+            <section class="form-section">
+              <div class="form-title"><span class="form-step">01</span><div><h3>Practice details</h3><p>What does your session look like?</p></div></div>
+              <div class="form-grid three">
+                <label>Sport<select id="sport"><option>Tennis</option><option>Soccer</option><option>Running</option><option>Swimming</option><option>Basketball</option><option>Track & field</option><option>Other</option></select></label>
+                <label>Practice type<select id="practiceType"><option>Practice</option><option>Match</option><option>Game</option><option>Training</option><option>Recovery</option></select></label>
+                <label>Duration <span class="input-suffix">min</span><input id="duration" type="number" value="90" min="0" max="360" /></label>
+                <label>Surface<select id="surface"><option>Hard court</option><option>Grass</option><option>Clay</option><option>Turf</option><option>Indoor</option><option>Track</option><option>Pool</option></select></label>
+                <label>Setting<select id="setting"><option>Outdoor</option><option>Indoor</option></select></label>
+                <label>Sweat level<select id="sweat"><option>High</option><option>Medium</option><option>Low</option></select></label>
+              </div>
+              <label class="range-field">Practice intensity <b id="intensityValue">8 / 10</b><input id="intensity" type="range" min="1" max="10" value="8" /></label>
+            </section>
+            <section class="form-section">
+              <div class="form-title"><span class="form-step">02</span><div><h3>Recovery &amp; routine</h3><p>A few details to make the guidance practical.</p></div></div>
+              <div class="form-grid three">
+                <label>Sleep last night <span class="input-suffix">hrs</span><input id="sleep" type="number" value="6" min="0" max="14" step="0.5" /></label>
+                <label>Shower temperature<select id="showerType"><option>Hot</option><option>Mild</option><option>Cool</option></select></label>
+                <label>Shower after practice <span class="input-suffix">min</span><input id="showerDelay" type="number" value="25" min="0" max="240" /></label>
+                <label>Water today <span class="input-suffix">oz</span><input id="water" type="number" value="64" min="0" max="300" /></label>
+                <label>Sun exposure <span class="input-suffix">hrs</span><input id="sunExposure" type="number" value="1.5" min="0" max="14" step="0.5" /></label>
+                <label>Clothing<select id="clothing"><option>Cotton / breathable</option><option>Technical synthetic</option><option>Polyester blend</option><option>Unknown</option></select></label>
+              </div>
+              <div class="toggle-row">
+                <label class="toggle-label"><input id="moisturizerBefore" type="checkbox" checked /><span class="toggle"></span> Moisturizer before practice</label>
+                <label class="toggle-label"><input id="moisturizerAfter" type="checkbox" checked /><span class="toggle"></span> Moisturizer after shower</label>
+                <label class="toggle-label"><input id="sunscreen" type="checkbox" checked /><span class="toggle"></span> Sensitive-skin sunscreen</label>
+              </div>
+              <label class="range-field">Stress today <b id="stressValue">7 / 10</b><input id="stress" type="range" min="1" max="10" value="7" /></label>
+            </section>
+            <div class="form-actions"><p><span>●</span> Your score updates as you edit.</p><button class="primary-button" type="submit">Update my game plan <span>→</span></button></div>
+          </form>
+        </section>
+
+        <section class="research-section" id="research">
+          <div><p class="eyebrow">BUILT FOR BETTER DECISIONS</p><h2>Evidence-informed today.<br /><em>Personalized tomorrow.</em></h2></div>
+          <div class="research-copy"><p>EczemaIQ turns daily inputs into an explainable risk estimate. With consistent logging, it can help reveal which conditions—like dry air, delayed showering, or high sweat—matter most for you.</p><div class="research-tags"><span>Transparent rules</span><span>Personal history</span><span>Decision support</span></div></div>
+        </section>
+
+        <footer><p>EczemaIQ is an educational decision-support tool, not medical advice. For persistent or severe eczema, speak with a dermatologist.</p><button id="referencesButton">Evidence &amp; care principles <span>↗</span></button></footer>
+      </main>
+    </div>
+
+    <dialog id="locationDialog" class="modal">
+      <form id="locationForm" class="modal-content"><button class="modal-close" type="button" data-close-dialog="locationDialog" aria-label="Close">×</button><p class="eyebrow">YOUR LOCATION</p><h2>Set your practice area.</h2><p>Share your location for current conditions, or search by city, state, ZIP code, or country. Your choice stays on this device.</p><button class="location-choice" type="button" id="useCurrentLocation"><span>◎</span><span><strong>Use my current location</strong><small>We’ll ask your browser for permission.</small></span><b>→</b></button><div class="location-divider"><span>OR</span></div><label class="manual-location-label">Search for a location<input id="manualLocation" type="search" autocomplete="postal-code" placeholder="e.g. Boston, MA or 02108" /></label><p class="location-feedback" id="locationFeedback" aria-live="polite"></p><button class="primary-button" type="submit">Use this location <span>→</span></button></form>
+    </dialog>
+
+    <dialog id="profileDialog" class="modal">
+      <form id="profileForm" class="modal-content profile-modal"><button class="modal-close" type="button" data-close-dialog="profileDialog" aria-label="Close">×</button><p class="eyebrow" id="profileKicker">ATHLETE SETTINGS</p><h2 id="profileTitle">Your skin, your sport.</h2><p id="profileDescription">Tell EczemaIQ what matters to your routine. These details stay in this browser and make the game plan more relevant.</p><p class="setup-note" id="profileSetupNote" hidden>Start with the basics so we can make your first plan more personal. You can change any of this later in Settings.</p><div class="form-grid two"><label>Name<input id="profileName" type="text" maxlength="40" autocomplete="name" required /></label><label>Age<input id="profileAge" type="number" min="1" max="100" required /></label><label>Living with eczema <span class="input-suffix">years</span><input id="eczemaYears" type="number" min="0" max="100" step="0.5" required /></label><label>Primary medication<select id="medication"><option>Topical steroid</option><option>Non-steroidal topical</option><option>None</option><option>Other</option></select></label><label>Email <span class="input-suffix">optional</span><input id="profileEmail" type="email" maxlength="120" autocomplete="email" placeholder="you@example.com" /></label></div><fieldset class="trigger-fieldset"><legend>My common triggers</legend><p>Select the things you already know can affect your skin. These are personal patterns, not a diagnosis.</p><div class="chip-select trigger-select"><label><input type="checkbox" data-trigger="grass" /> Grass</label><label><input type="checkbox" data-trigger="sweat" /> Sweat</label><label><input type="checkbox" data-trigger="fragrance" /> Fragrance</label><label><input type="checkbox" data-trigger="dust" /> Dust</label><label><input type="checkbox" data-trigger="heatHumidity" /> Extreme heat / humidity</label><label><input type="checkbox" data-trigger="cold" /> Cold weather</label><label><input type="checkbox" data-trigger="pets" /> Pets</label><label><input type="checkbox" data-trigger="nuts" /> Nuts</label><label><input type="checkbox" data-trigger="soy" /> Soy</label><label><input type="checkbox" data-trigger="dairy" /> Dairy</label><label><input type="checkbox" data-trigger="sugaryItems" /> Sugary items</label><label><input type="checkbox" data-trigger="pollen" /> Pollen</label><label><input type="checkbox" data-trigger="chlorine" /> Chlorine / pool water</label><label><input type="checkbox" data-trigger="saltWater" /> Salt water</label><label><input type="checkbox" data-trigger="sand" /> Sand</label><label><input type="checkbox" data-trigger="detergents" /> Detergents</label><label><input type="checkbox" data-trigger="hotShowers" /> Hot showers</label><label><input type="checkbox" data-trigger="scentedBodyWash" /> Scented body washes</label><label><input type="checkbox" data-trigger="wool" /> Wool</label><label><input type="checkbox" data-trigger="polyester" /> Polyester</label><label><input type="checkbox" data-trigger="stressAnxiety" /> High stress / anxiety</label></div></fieldset><button class="primary-button" type="submit"><span id="profileSubmitText">Save settings</span> <span>→</span></button></form>
+    </dialog>
+
+    <dialog id="dailyProgressDialog" class="modal">
+      <form id="dailyProgressForm" class="modal-content daily-progress-modal"><button class="modal-close" type="button" data-close-dialog="dailyProgressDialog" aria-label="Close">×</button><p class="eyebrow">END-OF-DAY CHECK-IN</p><h2>How did your skin feel today?</h2><p>Log a flare level after your session and routine. Over time, this helps show your personal patterns.</p><label class="range-field flare-range">Flare level <b id="flareLevelValue">3 / 10</b><input id="flareLevel" type="range" min="0" max="10" value="3" /></label><div class="flare-scale"><span>Clear / calm</span><span>More active</span></div><label class="daily-plan-check"><input id="followedPlan" type="checkbox" /><span class="toggle"></span> I followed most of today’s plan</label><label class="daily-note">Anything you noticed? <span>(optional)</span><textarea id="dailyNote" rows="3" maxlength="280" placeholder="e.g. Skin felt dry after a hot walk home."></textarea></label><p class="progress-feedback" id="progressFeedback" aria-live="polite"></p><button class="primary-button" type="submit">Save today’s progress <span>→</span></button></form>
+    </dialog>
+
+    <dialog id="detailsDialog" class="modal">
+      <form method="dialog" class="modal-content details-modal"><button class="modal-close" value="cancel" aria-label="Close">×</button><p class="eyebrow">HOW TODAY'S SCORE WORKS</p><h2>Clear inputs. Clear reasons.</h2><div id="scoreBreakdown" class="score-breakdown"></div><p class="modal-footnote">Risk points are based on the selected routine and environmental thresholds. They are intentionally explainable and are not a validated clinical prediction.</p><button class="primary-button" value="close">Got it <span>→</span></button></form>
+    </dialog>
+
+    <dialog id="evidenceDialog" class="modal">
+      <form method="dialog" class="modal-content evidence-modal"><button class="modal-close" value="cancel" aria-label="Close">×</button><p class="eyebrow">DERMATOLOGY GUIDANCE LIBRARY</p><h2>Guidance behind the plan.</h2><p>EczemaIQ uses a transparent rule library based on dermatology guidance for common skin-care, trigger, and swimming precautions. It complements—not replaces—your dermatologist’s treatment plan.</p><ul class="evidence-list"><li><span>01</span><p><strong>Moisturize after bathing.</strong> Applying a gentle, fragrance-free moisturizer while skin is still damp helps support hydration.<a href="https://www.aad.org/public/diseases/eczema/types/atopic-dermatitis/atopic-dermatitis-coping" target="_blank" rel="noreferrer">American Academy of Dermatology ↗</a></p></li><li><span>02</span><p><strong>Use gentle bathing and product practices.</strong> Lukewarm water plus fragrance-free products and detergents can help protect the skin barrier.<a href="https://www.niams.nih.gov/health-topics/atopic-dermatitis/diagnosis-treatment-and-steps-to-take" target="_blank" rel="noreferrer">National Institute of Arthritis and Musculoskeletal and Skin Diseases ↗</a></p></li><li><span>03</span><p><strong>Manage sweat, temperature, and fabrics.</strong> Heat, sweat, wool, and synthetic fabrics can be common triggers for some people.<a href="https://www.aad.org/public/diseases/eczema/types/atopic-dermatitis/treatment" target="_blank" rel="noreferrer">American Academy of Dermatology ↗</a></p></li><li><span>04</span><p><strong>Use a swim routine when pool water irritates.</strong> Dermatologists recommend a barrier moisturizer before pool time, then rinsing and moisturizing promptly afterwards.<a href="https://www.aad.org/public/diseases/eczema/childhood/triggers/swimming" target="_blank" rel="noreferrer">American Academy of Dermatology ↗</a></p></li><li><span>05</span><p><strong>Discuss possible food allergies with a clinician.</strong> EczemaIQ does not diagnose food triggers or recommend food elimination on its own.<a href="https://www.niams.nih.gov/health-topics/atopic-dermatitis/diagnosis-treatment-and-steps-to-take" target="_blank" rel="noreferrer">National Institute of Arthritis and Musculoskeletal and Skin Diseases ↗</a></p></li></ul><p class="modal-footnote">The score, thresholds, and suggested timing in this prototype are decision-support heuristics; they are not a validated medical prediction or medication guidance.</p><button class="primary-button" value="close">Close sources <span>→</span></button></form>
+    </dialog>
+
+    <style>.evidence-list{margin:19px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}.evidence-list li{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.evidence-list li>span{font-family:"DM Mono",monospace;font-size:10px;color:#6f9614;padding-top:2px}.evidence-list p{margin:0;color:#62766f;font-size:11px;line-height:1.4}.evidence-list strong{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}.evidence-list a{display:block;color:#51746a;font-size:10px;font-weight:600;margin-top:5px;text-decoration:none}.evidence-list a:hover{text-decoration:underline}.progress-button{width:100%;margin-top:18px;border:0;border-radius:7px;padding:10px;background:var(--ink);color:#fff;font:700 11px "DM Sans";text-align:left;cursor:pointer}.progress-button span{float:right;font-size:15px;line-height:10px}.care-alert{display:flex;gap:8px;margin-top:15px;padding:10px;border-radius:8px;background:#fff1e7;color:#87513b}.care-alert>span{font-size:15px;line-height:1}.care-alert p{margin:0;font-size:10px;line-height:1.4}.care-alert strong{display:block;color:#79432f;font-size:11px}.location-choice{width:100%;display:flex;align-items:center;gap:11px;border:1px solid #dbe4d8;border-radius:10px;background:#f5f8ed;padding:13px;text-align:left;color:var(--ink);cursor:pointer}.location-choice>span:first-child{display:grid;place-items:center;width:29px;height:29px;background:var(--lime);border-radius:50%;font-size:17px}.location-choice strong,.location-choice small{display:block}.location-choice strong{font-size:12px}.location-choice small{margin-top:2px;color:#71827b;font-size:10px;font-weight:400}.location-choice b{margin-left:auto;color:#5f870c;font-size:18px}.location-divider{height:1px;background:#e1e6df;margin:20px 0;position:relative;text-align:center}.location-divider span{position:relative;top:-7px;background:#fff;padding:0 8px;color:#86958f;font:10px "DM Mono",monospace}.manual-location-label{display:block;font-size:11px}.location-feedback,.progress-feedback{min-height:16px;margin:8px 0 0;color:#7b4233;font-size:10px;line-height:1.35}.location-feedback.success,.progress-feedback.success{color:#5f870c}.trigger-fieldset{margin-top:22px!important}.trigger-fieldset>p{margin:0 0 10px;color:#778981;font-size:10px;line-height:1.4}.trigger-select{max-height:204px;overflow:auto;padding-right:3px}.trigger-select label{line-height:1.2}.setup-note{margin:12px 0 0!important;padding:9px 10px;background:#eef5d3;border-radius:7px;color:#4b6e20!important;font-size:11px!important}.daily-progress-modal{max-width:460px}.flare-range{margin-top:23px}.flare-scale{display:flex;justify-content:space-between;color:#82918b;font-size:10px;margin-top:7px}.daily-plan-check{margin-top:21px;display:flex;align-items:center;gap:7px;font-size:11px;color:#49645d;cursor:pointer}.daily-plan-check input{display:none}.daily-plan-check input:checked+.toggle{background:#679606}.daily-plan-check input:checked+.toggle:after{left:13px}.daily-note{display:block;margin-top:19px;font-size:11px}.daily-note span{font-weight:400;color:#82918b}.daily-note textarea{display:block;width:100%;resize:vertical;margin-top:6px;padding:10px;border:1px solid #dce3da;border-radius:7px;color:var(--ink);font:12px "DM Sans";outline:none}.daily-note textarea:focus,.manual-location-label input:focus{border-color:#6d9c14;box-shadow:0 0 0 3px rgba(201,237,91,.27)}@media(max-width:460px){.trigger-select{max-height:190px}.location-choice{padding:11px}.profile-modal{padding:25px 20px}.daily-progress-modal{padding:26px 22px}}</style>
+
+    <script src="app.js"></script>
+  </body>
+</html>
